@@ -11,28 +11,29 @@ class DocumentRequest(Document):
 
     def validate(self):
 
-        new_rows = [v for v in self.document_version if not v.version_no]        
+        new_rows = [v for v in self.document_version if not v.version_no]
 
         if new_rows:
-             new_row = new_rows[0]
+            new_row = new_rows[0]
 
-        last_version = max([v.version_no for v in self.document_version if v.version_no], default=0)
-        new_row.version_no = last_version + 1
+            last_version = max([v.version_no for v in self.document_version if v.version_no], default=0)
+            new_row.version_no = last_version + 1
 
-        new_row.uploaded_on = now_datetime()
-        new_row.uploaded_by = frappe.session.user
+            new_row.uploaded_on = now_datetime()
+            new_row.uploaded_by = frappe.session.user
 
-        new_row.is_latest = 1
-        new_row.archived = 0
+            new_row.is_latest = 1
+            new_row.archived = 0
 
-        for v in self.document_version:
+            for v in self.document_version:
                 if v.name != new_row.name:
                     v.is_latest = 0
                     v.archived = 1
-        self.document_version.sort(key=lambda r: r.version_no, reverse=True)
-        
-        if new_row.file:
+
+            self.document_version.sort(key=lambda r: r.version_no, reverse=True)
+
+            if new_row.file:
                 self.attachments = new_row.file
 
-                self.current_version = new_row.name
-                self.version_counter = new_row.version_no
+            self.current_version = new_row.name
+            self.version_counter = new_row.version_no

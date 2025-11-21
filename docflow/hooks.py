@@ -22,6 +22,12 @@ app_license = "mit"
 # ]
 # hooks.py — REMOVE override_whitelisted_methods completely
 
+override_whitelisted_methods = {
+    "docflow.api.get_archived_versions": "docflow.api.get_archived_versions",
+    "docflow.api.unarchive_version": "docflow.api.unarchive_version",
+}
+app_include_js = ["doctype_js/document_request/document_request.js"]
+
 
 
 # Includes in <head>
