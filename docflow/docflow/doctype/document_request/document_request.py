@@ -31,3 +31,5 @@ class DocumentRequest(Document):
                     v.archived = 1
         self.document_version.sort(key=lambda r: r.version_no, reverse=True)
         
+        if new_row.file:
+                self.attachments = new_row.file
