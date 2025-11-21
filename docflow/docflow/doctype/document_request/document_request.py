@@ -22,3 +22,5 @@ class DocumentRequest(Document):
         new_row.uploaded_on = now_datetime()
         new_row.uploaded_by = frappe.session.user
 
+        new_row.is_latest = 1
+        new_row.archived = 0
