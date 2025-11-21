@@ -18,4 +18,7 @@ class DocumentRequest(Document):
 
         last_version = max([v.version_no for v in self.document_version if v.version_no], default=0)
         new_row.version_no = last_version + 1
-        
+
+        new_row.uploaded_on = now_datetime()
+        new_row.uploaded_by = frappe.session.user
+
