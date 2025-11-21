@@ -13,4 +13,14 @@ frappe.ui.form.on("Document Request", {
                 }
             });
         }
-    }});
+
+        // Load archived versions in popup
+        frappe.call({
+            method: "docflow.api.get_archived_versions",
+            args: { parent: frm.doc.name },
+            freeze: false,
+            callback(r) {
+
+                if (!r.message || r.message.length === 0) return;
+            }});
+        }});
