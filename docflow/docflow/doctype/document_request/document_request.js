@@ -51,5 +51,11 @@ frappe.ui.form.on("Document Request", {
                         <tbody>${rows}</tbody>
                     </table>
                 `;
+                frappe.call({
+                    method: "docflow.api.unarchive_version",
+                    args: { name },
+                    callback: () => { frm.reload_doc(); }
+                });
+
                     })}});
                 }});
