@@ -24,3 +24,8 @@ class DocumentRequest(Document):
 
         new_row.is_latest = 1
         new_row.archived = 0
+
+        for v in self.document_version:
+                if v.name != new_row.name:
+                    v.is_latest = 0
+                    v.archived = 1
