@@ -3,7 +3,6 @@ frappe.ui.form.on("Document Request", {
 
         if (!frm.doc.name) return;
 
-        // Hide archived rows in the child table
         if (frm.fields_dict.document_version?.grid?.grid_rows) {
             frm.fields_dict.document_version.grid.grid_rows.forEach(row => {
                 if (row.doc.archived == 1) {
@@ -14,7 +13,6 @@ frappe.ui.form.on("Document Request", {
             });
         }
 
-        // Load archived versions in popup
         frappe.call({
             method: "docflow.api.get_archived_versions",
             args: { parent: frm.doc.name },
@@ -38,24 +36,42 @@ frappe.ui.form.on("Document Request", {
                             </td>
                         </tr>
                     `).join("");
-                    let dialog_html = `
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Version</th>
-                                <th>Uploaded On</th>
-                                <th>File</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>${rows}</tbody>
-                    </table>
-                `;
-                frappe.call({
-                    method: "docflow.api.unarchive_version",
-                    args: { name },
-                    callback: () => { frm.reload_doc(); }
-                });
 
-                    })}});
-                }});
+                    let dialog_html = `
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Version</th>
+                                    <th>Uploaded On</th>
+                                    <th>File</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>${rows}</tbody>
+                        </table>
+                    `;
+
+                    let d = frappe.msgprint({
+                        title: "Archived Versions",
+                        message: dialog_html,
+                        wide: true
+                    });
+
+                    setTimeout(() => {
+                        document.querySelectorAll(".unarchive-btn").forEach(btn => {
+                            btn.addEventListener("click", () => {
+                                let name = btn.dataset.name;
+
+                                frappe.call({
+                                    method: "docflow.api.unarchive_version",
+                                    args: { name },
+                                    callback: () => { frm.reload_doc(); }
+                                });
+                            });
+                        });
+                    }, 300);
+                });
+            }
+        });
+    }
+});
