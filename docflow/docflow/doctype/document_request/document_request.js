@@ -38,5 +38,18 @@ frappe.ui.form.on("Document Request", {
                             </td>
                         </tr>
                     `).join("");
+                    let dialog_html = `
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Version</th>
+                                <th>Uploaded On</th>
+                                <th>File</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rows}</tbody>
+                    </table>
+                `;
                     })}});
                 }});
