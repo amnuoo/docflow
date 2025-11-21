@@ -12,3 +12,10 @@ class DocumentRequest(Document):
     def validate(self):
 
         new_rows = [v for v in self.document_version if not v.version_no]        
+
+        if new_rows:
+             new_row = new_rows[0]
+
+        last_version = max([v.version_no for v in self.document_version if v.version_no], default=0)
+        new_row.version_no = last_version + 1
+        
