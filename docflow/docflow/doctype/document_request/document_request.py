@@ -33,3 +33,6 @@ class DocumentRequest(Document):
         
         if new_row.file:
                 self.attachments = new_row.file
+
+                self.current_version = new_row.name
+                self.version_counter = new_row.version_no
