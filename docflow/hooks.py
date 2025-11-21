@@ -20,6 +20,9 @@ app_license = "mit"
 # 		"has_permission": "docflow.api.permission.has_app_permission"
 # 	}
 # ]
+# hooks.py — REMOVE override_whitelisted_methods completely
+
+
 
 # Includes in <head>
 # ------------------

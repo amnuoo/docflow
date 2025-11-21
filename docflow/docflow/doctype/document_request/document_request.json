@@ -1,10 +1,12 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:{title}",
  "creation": "2025-11-17 11:46:34.772511",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "workflow_state",
   "section_break_qevd",
   "amended_from",
   "title",
@@ -14,7 +16,10 @@
   "status",
   "is_priority",
   "attachments",
-  "current_version"
+  "document_version",
+  "version_counter",
+  "current_version",
+  "show_archived"
  ],
  "fields": [
   {
@@ -34,22 +39,29 @@
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "label": "Title"
+   "in_list_view": 1,
+   "label": "Title",
+   "reqd": 1
   },
   {
    "fieldname": "description",
    "fieldtype": "Small Text",
-   "label": "Description"
+   "in_list_view": 1,
+   "label": "Description",
+   "reqd": 1
   },
   {
    "fieldname": "document_type",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Document type",
-   "options": "Contract\nInvoice\nVisa File"
+   "options": "Personal Document\nContract\nInvoice\nVisa File",
+   "reqd": 1
   },
   {
    "fieldname": "requested_by",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Requested by",
    "options": "User"
   },
@@ -57,7 +69,8 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Draft\nSubmitted\nIn Review\nApproved\nRejected\nArchived"
+   "options": "Draft\nSubmitted\nIn Review\nApproved\nRejected\nArchived",
+   "reqd": 1
   },
   {
    "default": "0",
@@ -68,23 +81,56 @@
   {
    "fieldname": "attachments",
    "fieldtype": "Attach",
-   "label": "Attachments"
+   "label": "Attachments",
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "workflow_state",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Workflow State",
+   "no_copy": 1,
+   "options": "Workflow State"
+  },
+  {
+   "fieldname": "document_version",
+   "fieldtype": "Table",
+   "label": "Document Version",
+   "options": "Document Version"
+  },
+  {
+   "fieldname": "version_counter",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Version Counter",
+   "no_copy": 1,
+   "read_only": 1
   },
   {
    "fieldname": "current_version",
-   "fieldtype": "Link",
-   "label": "Document Version",
-   "options": "Document Version"
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Current Version",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "show_archived",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Show Archived Versions"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-18 12:24:02.973286",
+ "modified": "2025-11-20 14:34:13.519249",
  "modified_by": "Administrator",
  "module": "Docflow",
  "name": "Document Request",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
