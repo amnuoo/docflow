@@ -30,6 +30,13 @@ frappe.ui.form.on("Document Request", {
                             <td>${v.version_no}</td>
                             <td>${v.uploaded_on}</td>
                             <td><a href="${v.file}" target="_blank">View</a></td>
+                            <td>
+                                <button class="btn btn-sm btn-primary unarchive-btn"
+                                    data-name="${v.name}">
+                                    Unarchive
+                                </button>
+                            </td>
+                        </tr>
                     `).join("");
                     })}});
                 }});
