@@ -29,3 +29,5 @@ class DocumentRequest(Document):
                 if v.name != new_row.name:
                     v.is_latest = 0
                     v.archived = 1
+        self.document_version.sort(key=lambda r: r.version_no, reverse=True)
+        
